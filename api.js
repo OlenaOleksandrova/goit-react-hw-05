@@ -26,6 +26,14 @@ export const fetchMovieDetails = async (movieId) => {
     return response.data;
 };
 
+
+export const searchMovie = async (movieId) => {
+  const response = await fetch(
+    `https://api.themoviedb.org /3/search/movie${movieId}?_key=${API_KEY}`
+  );
+  if (!response.ok) throw new Error("not found movie.");
+  return await response.json();
+};
 // Акторський склад
 export const fetchMovieCredits = async (movieId) => {
   const response = await fetch(

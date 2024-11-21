@@ -7,7 +7,7 @@ import { fetchMovieDetails } from "../../../api"
 
 const MovieDetailsPage = () => {
     const { movieId } = useParams();
-    const [movie, setMovie] = useState(null); // Стан для фільму
+    const [movie, setMovie] = useState(null);
     const [error, setError] = useState(null);
 
     // useEffect(() => {
