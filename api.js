@@ -17,6 +17,29 @@ export const fetchTrendingMovies = async () => {
   return response.data.results;
 };
 
+// export const fetchMovieDetails = async (movieId) => {
+//     const response = await axios.get(`${BASE_URL}/movie/${movieId}`, {
+//         headers: {
+//             Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmYjIwNDMxYWNkZjZiMDlkNzljMDFiMWI0OGQ3MmU3NCIsIm5iZiI6MTczMjA0NTU5Ni45ODA5MDEsInN1YiI6IjY3M2NlODViZTc3MmNjYzE1NjQ1NDRkNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.y6lfHfhEgDQYB4m1hY1d1jXfJbVl9Af2kxBdP_Xf00w'
+//         },
+//     });
+//     return response.data;
+// };
+
+
+export const fetchMoviesByKeyword = async (query) => {
+    const response = await axios.get(`${BASE_URL}/search/movie`, {
+        params: {
+            api_key: API_KEY,
+            query: query,
+        },
+        headers: {
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmYjIwNDMxYWNkZjZiMDlkNzljMDFiMWI0OGQ3MmU3NCIsIm5iZiI6MTczMjA0NTU5Ni45ODA5MDEsInN1YiI6IjY3M2NlODViZTc3MmNjYzE1NjQ1NDRkNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.y6lfHfhEgDQYB4m1hY1d1jXfJbVl9Af2kxBdP_Xf00w'
+        },
+    });
+    return response.data.results;
+};
+
 // const options = {
  
 // };
