@@ -1,15 +1,13 @@
 import { useEffect, useState } from 'react'
 import { NavLink, Outlet, useParams } from 'react-router-dom';
 import s from "./MovieDeteilsPage.module.css"
-import { fetchMoviesByKeyword } from '../../../api';
-
+// import { fetchMoviesByKeyword } from '../../../api';
+import { fetchMovieDetails } from "../../../api"
 
 
 const MovieDetailsPage = () => {
     const { movieId } = useParams();
-    // const [user, setUser] = useState(null);
-
-     const [movie, setMovie] = useState(null); // Стан для фільму
+    const [movie, setMovie] = useState(null); // Стан для фільму
     const [error, setError] = useState(null);
 
     // useEffect(() => {
@@ -25,7 +23,7 @@ const MovieDetailsPage = () => {
      useEffect(() => {
         const getMovieDetails = async () => {
             try {
-                const data = await fetchMoviesByKeyword(movieId);
+                const data = await fetchMovieDetails(movieId);
                 setMovie(data);
             } catch (err) {
                 setError("Не вдалося завантажити деталі фільму");
@@ -41,34 +39,46 @@ const MovieDetailsPage = () => {
     if (!movie) {
         return <p>Завантаження...</p>;
     }
+    if (error) return <p>{error}</p>
+
+    const year = movie.release_date ? new Date(movie.release_date).getFullYear() : "N/A";
+    const userScore = Math.round(movie.vote_average * 10);
+    const genres = movie.genres?.map(genre => genre.name).join(", ") || "N/A";
 
   return (
-      <div>
-          <h2>Movie Details Page </h2>
-          {/* <button onClick={() => navigate(-1)}>← Назад</button> */}
+      <div className={s.infoFilm}>
           
-    
-         <div>
-              <h2>{movie.title}</h2>
-              <img
+          <div className={s.block}> 
+          {/* <button onClick={() => navigate(-1)}>← Назад</button> */}
+          <img  className={s.img}
                     src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                     alt={movie.title}
                     width="300"
-                />
-            <p>{movie.overview}</p>
-            <p>Рейтинг: {movie.vote_average}</p>
-            <p>Дата релізу: {movie.release_date}</p>
-         </div>
-        
+          />
+          
+          <div>
+              
+              
+                <h2>{movie.title} ({year})</h2>
+                <p className={s.info}>User Score: {userScore}%</p>
+                <div className={s.info}>
+                    <h2>Overview</h2>
+                    <p>{movie.overview}</p>
+                    <p>Genres: {genres}</p>
+                </div>
             
-                
-          <nav className={s.nav}>
-              <NavLink to="cast">MovieCast</NavLink>
+          </div>
+      
+          </div>
+      <div>
+              <nav className={s.nav}>
+              <NavLink to="MovieCast">MovieCast</NavLink>
               <NavLink to="MovieReviews">MovieReviews</NavLink>
           </nav>
-          <Outlet />
-         
+                <Outlet /> 
+          </div>
       </div>
+      
   )
 }
 

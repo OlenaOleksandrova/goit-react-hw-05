@@ -16,7 +16,7 @@ const HomePage = () => {
             const data = await fetchTrendingMovies ();
             setMovies(data);
         }
-        catch (error) {
+        catch (err) {
             setError('Не вдалося завантажити фільми');
         }
     };
@@ -28,14 +28,12 @@ const HomePage = () => {
     return (
         <div>
             <ul className={s.list}>
-                {movies.map(movie => (
-                    <li key={movie.id}>
-                        <Link to={movie.id.toString()}>
-                            {movie.title}
-                        </Link>
-                    </li>
-                ))}
-          </ul>
+        {movies.map((movie) => (
+          <li key={movie.id}>
+            <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+          </li>
+        ))}
+      </ul>
         </div>
     )
 };

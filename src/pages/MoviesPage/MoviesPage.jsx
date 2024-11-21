@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-
-import { fetchMoviesByKeyword } from "../../../api";
+import {fetchMovieDetails } from "../../../api"
+// import { fetchMoviesByKeyword } from "../../../api";
 import { NavLink } from "react-router-dom";
 import s from "./MoviesPage.module.css";
 
@@ -22,7 +22,7 @@ const MoviesPage = () => {
         setError(null);
 
         try {
-            const data = await fetchMoviesByKeyword(query.trim());
+            const data = await fetchMovieDetails (query.trim());
             if (data.length === 0) {
                 setError("Нічого не знайдено за цим запитом.");
             }

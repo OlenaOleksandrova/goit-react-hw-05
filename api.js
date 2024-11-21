@@ -5,7 +5,7 @@ const BASE_URL = 'https://api.themoviedb.org/3';
 
 // const headers = {
 //   Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmYjIwNDMxYWNkZjZiMDlkNzljMDFiMWI0OGQ3MmU3NCIsIm5iZiI6MTczMjA0NTU5Ni45ODA5MDEsInN1YiI6IjY3M2NlODViZTc3MmNjYzE1NjQ1NDRkNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.y6lfHfhEgDQYB4m1hY1d1jXfJbVl9Af2kxBdP_Xf00w`,
-// };
+// }; 
 
 export const fetchTrendingMovies = async () => {
     const response = await axios.get(`${BASE_URL}/trending/movie/day`, {
@@ -17,33 +17,29 @@ export const fetchTrendingMovies = async () => {
   return response.data.results;
 };
 
-// export const fetchMovieDetails = async (movieId) => {
-//     const response = await axios.get(`${BASE_URL}/movie/${movieId}`, {
-//         headers: {
-//             Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmYjIwNDMxYWNkZjZiMDlkNzljMDFiMWI0OGQ3MmU3NCIsIm5iZiI6MTczMjA0NTU5Ni45ODA5MDEsInN1YiI6IjY3M2NlODViZTc3MmNjYzE1NjQ1NDRkNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.y6lfHfhEgDQYB4m1hY1d1jXfJbVl9Af2kxBdP_Xf00w'
-//         },
-//     });
-//     return response.data;
-// };
-
-
-export const fetchMoviesByKeyword = async (query) => {
-    const response = await axios.get(`${BASE_URL}/search/movie`, {
-        params: {
-            api_key: API_KEY,
-            query: query,
-        },
+export const fetchMovieDetails = async (movieId) => {
+    const response = await axios.get(`${BASE_URL}/movie/${movieId}`, {
         headers: {
             Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmYjIwNDMxYWNkZjZiMDlkNzljMDFiMWI0OGQ3MmU3NCIsIm5iZiI6MTczMjA0NTU5Ni45ODA5MDEsInN1YiI6IjY3M2NlODViZTc3MmNjYzE1NjQ1NDRkNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.y6lfHfhEgDQYB4m1hY1d1jXfJbVl9Af2kxBdP_Xf00w'
         },
     });
-    return response.data.results;
+    return response.data;
 };
 
-// const options = {
- 
-// };
+// Акторський склад
+export const fetchMovieCredits = async (movieId) => {
+  const response = await fetch(
+    `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${API_KEY}`
+  );
+  if (!response.ok) throw new Error("Failed to fetch movie credits.");
+  return await response.json();
+};
 
-// axios.get(url, options)
-//   .then(response => console.log(response))
-//   .catch(err => console.error(err));
+// Запит оглядів reviws
+export const fetchMovieReviews = async (movieId) => {
+  const response = await fetch(
+      `https://api.themoviedb.org/3/movie/${movieId}/reviews?api_key=${API_KEY}`
+  );
+  if (!response.ok) throw new Error("Failed to fetch movie reviews.");
+  return await response.json();
+};
