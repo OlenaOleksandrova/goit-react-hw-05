@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 // import {fetchMovieDetails } from "../../../api"
 // import { fetchMoviesByKeyword } from "../../../api";
-import { NavLink, useSearchParams } from "react-router-dom";
+import { NavLink, useLocation, useSearchParams } from "react-router-dom";
 import s from "./MoviesPage.module.css";
 import { searchMovie } from '../../../api'
 import SearchMovie from "../../components/SearchMovie/SearchMovie";
@@ -10,33 +10,13 @@ const MoviesPage = () => {
     // const [inputQuery, setInputQuery] = useState("");
     const [movies, setMovies] = useState([]);
     const [error, setError] = useState(null);
-
     const [searchParams, setSearchParams] = useSearchParams();
     const searchQuery = searchParams.get('query') ?? '';
+    const location = useLocation();
+    console.log(location)
 
-    useEffect(() => {
-        document.title = "BEST CODERS | MoviesPage";
-    // }, []);
-
-    // const handleSearch = async (e) => {
-    //     e.preventDefault();
-    //     if (!query.trim()) {
-    //         setError("Будь ласка, введіть ключове слово.");
-    //         return;
-    //     }
-    //     setError(null);
-
-    //     try {
-    //         const data = await fetchMovieDetails (query.trim());
-    //         if (data.length === 0) {
-    //             setError("Нічого не знайдено за цим запитом.");
-    //         }
-    //         setMovies(data);
-    //     } catch (err) {
-    //         setError("Не вдалося виконати пошук.");
-    //     }
-    // };
-    if (searchQuery.trim()) {
+     useEffect(() => {
+        if (searchQuery.trim()) {
             const fetchMovies = async () => {
                 try {
                     const results = await searchMovie(searchQuery.trim());
@@ -80,10 +60,10 @@ const MoviesPage = () => {
                 </button>
             </form> */}
             {error && <p className={s.error}>{error}</p>}
-            <ul className={s.list}>
+         <ul className={s.list}>
                 {movies.map((movie) => (
                     <li key={movie.id} className={s.listItem}>
-                        <NavLink to={`/movies/${movie.id}`}>{movie.title}</NavLink>
+                        <NavLink to={`/movies/${movie.id}`} state={location}>{movie.title} </NavLink>
                     </li>
                     
                 ))}

@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { NavLink, Outlet, useParams } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react'
+import { Link, NavLink, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import s from "./MovieDeteilsPage.module.css"
 // import { fetchMoviesByKeyword } from '../../../api';
 import { fetchMovieDetails } from "../../../api"
@@ -9,16 +9,9 @@ const MovieDetailsPage = () => {
     const { movieId } = useParams();
     const [movie, setMovie] = useState(null);
     const [error, setError] = useState(null);
-
-    // useEffect(() => {
-    //     document.title = "BEST CODERS | MovieDetailsPage";
-
-    //     const getData = async () => {
-    //         const data = await fetchMoviesByKeyword(movieId);
-    //         setUser(data);
-    //     };
-    //     getData();
-    // }, [movieId]);
+    const location = useLocation();
+    console.log(location);
+    const goBackLink = useRef(location.state ?? "/movies");
     
      useEffect(() => {
         const getMovieDetails = async () => {
@@ -31,10 +24,6 @@ const MovieDetailsPage = () => {
         };
         getMovieDetails();
     }, [movieId]);
-
-    // if (!user) {
-    //     return <h2>Loading data...</h2>
-    // }
    
     if (!movie) {
         return <p>Завантаження...</p>;
@@ -47,9 +36,9 @@ const MovieDetailsPage = () => {
 
   return (
       <div className={s.infoFilm}>
-          
+        
           <div className={s.block}> 
-          {/* <button onClick={() => navigate(-1)}>← Назад</button> */}
+          
           <img  className={s.img}
                     src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                     alt={movie.title}
@@ -57,7 +46,6 @@ const MovieDetailsPage = () => {
           />
           
           <div>
-              
               
                 <h2>{movie.title} ({year})</h2>
                 <p className={s.info}>User Score: {userScore}%</p>
@@ -72,8 +60,11 @@ const MovieDetailsPage = () => {
           </div>
       <div>
               <nav className={s.nav}>
-              <NavLink to="MovieCast">MovieCast</NavLink>
-              <NavLink to="MovieReviews">MovieReviews</NavLink>
+              <NavLink to="MovieCast" state={location.state}>MovieCast</NavLink>
+              <NavLink to="MovieReviews" state={location.state} >MovieReviews</NavLink>
+                   <Link to={goBackLink.current}>Go back</Link>
+                  {/* <button className={s.button} onClick={() => navigate(-1)}>← Назад</button> */}
+                 
           </nav>
                 <Outlet /> 
           </div>
