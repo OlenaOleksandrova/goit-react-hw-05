@@ -1,5 +1,6 @@
 import { Field, Form, Formik } from 'formik';
 import React from 'react'
+import s from "./SearchMovie.module.css"
 
 const SearchMovie = ({handleSetQuery}) => {
     const handleSubmit = (values) => {
@@ -12,10 +13,10 @@ const SearchMovie = ({handleSetQuery}) => {
     return (
         <div>
             <Formik onSubmit={handleSubmit} initialValues={initialValues}>
-                <Form>
-                    <Field name="query"
+                <Form className={s.form}>
+                    <Field className={s.field} name="query"
                            placeholder="Введіть назву фільма" />
-                    <button type='submit'>Search</button>
+                    <button className={s.button} type='submit'>Search</button>
                 </Form>
             </Formik>
         </div>

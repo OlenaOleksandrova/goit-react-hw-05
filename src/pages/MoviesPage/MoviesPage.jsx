@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 // import {fetchMovieDetails } from "../../../api"
 // import { fetchMoviesByKeyword } from "../../../api";
-import { NavLink } from "react-router-dom";
+import { NavLink, useSearchParams } from "react-router-dom";
 import s from "./MoviesPage.module.css";
 import { searchMovie } from '../../../api'
 import SearchMovie from "../../components/SearchMovie/SearchMovie";
 
 const MoviesPage = () => {
-    const [query, setQuery] = useState("");
+    // const [inputQuery, setInputQuery] = useState("");
     const [movies, setMovies] = useState([]);
     const [error, setError] = useState(null);
 
-    
+    const [searchParams, setSearchParams] = useSearchParams();
+    const searchQuery = searchParams.get('query') ?? '';
 
     useEffect(() => {
         document.title = "BEST CODERS | MoviesPage";
@@ -35,10 +36,10 @@ const MoviesPage = () => {
     //         setError("Не вдалося виконати пошук.");
     //     }
     // };
-    if (query.trim()) {
+    if (searchQuery.trim()) {
             const fetchMovies = async () => {
                 try {
-                    const results = await searchMovie(query.trim());
+                    const results = await searchMovie(searchQuery.trim());
                     if (results.length === 0) {
                         setError("Нічого не знайдено за цим запитом.");
                         setMovies([]);
@@ -52,11 +53,16 @@ const MoviesPage = () => {
             };
             fetchMovies();
         }
-    }, [query]);
+    }, [searchQuery]);
 
+    const query = searchParams.get('query') ?? '';
+    console.log(query)
     const handleSetQuery = newValue => {
-        setQuery(newValue);
-}  
+        searchParams.set('query', newValue);
+        // setQuery(newValue);
+        // searchParams.set('Test', 123);
+        setSearchParams(searchParams);
+    };
     return (
         <div className={s.container}>
             <h2>Пошук фільмів</h2>
