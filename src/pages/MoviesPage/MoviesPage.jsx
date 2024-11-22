@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import {fetchMovieDetails } from "../../../api"
+// import {fetchMovieDetails } from "../../../api"
 // import { fetchMoviesByKeyword } from "../../../api";
 import { NavLink } from "react-router-dom";
 import s from "./MoviesPage.module.css";
+import { searchMovie } from '../../../api'
 import SearchMovie from "../../components/SearchMovie/SearchMovie";
 
 const MoviesPage = () => {
@@ -14,7 +15,7 @@ const MoviesPage = () => {
 
     useEffect(() => {
         document.title = "BEST CODERS | MoviesPage";
-    }, []);
+    // }, []);
 
     // const handleSearch = async (e) => {
     //     e.preventDefault();
@@ -34,6 +35,24 @@ const MoviesPage = () => {
     //         setError("Не вдалося виконати пошук.");
     //     }
     // };
+    if (query.trim()) {
+            const fetchMovies = async () => {
+                try {
+                    const results = await searchMovie(query.trim());
+                    if (results.length === 0) {
+                        setError("Нічого не знайдено за цим запитом.");
+                        setMovies([]);
+                    } else {
+                        setError(null);
+                        setMovies(results);
+                    }
+                } catch {
+                    setError("Не вдалося виконати пошук.");
+                }
+            };
+            fetchMovies();
+        }
+    }, [query]);
 
     const handleSetQuery = newValue => {
         setQuery(newValue);

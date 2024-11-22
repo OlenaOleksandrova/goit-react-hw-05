@@ -13,7 +13,8 @@ const SearchMovie = ({handleSetQuery}) => {
         <div>
             <Formik onSubmit={handleSubmit} initialValues={initialValues}>
                 <Form>
-                    <Field name="query" placeholder="Введіть назву фільма" />
+                    <Field name="query"
+                           placeholder="Введіть назву фільма" />
                     <button type='submit'>Search</button>
                 </Form>
             </Formik>

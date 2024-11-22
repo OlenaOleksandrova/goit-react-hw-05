@@ -25,7 +25,7 @@ const MovieDetailsPage = () => {
             try {
                 const data = await fetchMovieDetails(movieId);
                 setMovie(data);
-            } catch (err) {
+            } catch {
                 setError("Не вдалося завантажити деталі фільму");
             }
         };
