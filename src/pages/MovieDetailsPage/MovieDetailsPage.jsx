@@ -10,6 +10,7 @@ const MovieDetailsPage = () => {
     const [movie, setMovie] = useState(null);
     const [error, setError] = useState(null);
     const location = useLocation();
+     const navigate = useNavigate();
     console.log(location);
     const goBackLink = useRef(location.state ?? "/movies");
     

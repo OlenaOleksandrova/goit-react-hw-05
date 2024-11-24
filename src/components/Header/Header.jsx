@@ -14,8 +14,8 @@ const Header = () => {
                     HomePage</NavLink>
                 <NavLink className={buildLinkClass} to="/movies">
                     MoviesPage</NavLink>
-                <NavLink className={buildLinkClass} to="/movies/:movieId">
-                    MovieDetailsPage</NavLink>
+                {/* <NavLink className={buildLinkClass} to="/movies/:movieId">
+                    MovieDetailsPage</NavLink> */}
             </nav>
         </header>
     );

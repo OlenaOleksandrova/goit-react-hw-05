@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { fetchTrendingMovies } from "../../../api";
 import s from "./HomePage.module.css"
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import MovieList from "../../components/MovieList/MovieList";
 
 const HomePage = () => {
 
     const [movies, setMovies] = useState([]);
     const [error, setError] = useState(null);
+    const location = useLocation();
 
     useEffect(() => {
         document.title = "BEST CODERS | HomePage";
@@ -27,13 +29,7 @@ const HomePage = () => {
     
     return (
         <div>
-            <ul className={s.list}>
-        {movies.map((movie) => (
-          <li key={movie.id}>
-            <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
-          </li>
-        ))}
-      </ul>
+            <MovieList movies={movies} state={location} />
         </div>
     )
 };

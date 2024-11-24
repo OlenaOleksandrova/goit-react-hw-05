@@ -5,6 +5,7 @@ import { NavLink, useLocation, useSearchParams } from "react-router-dom";
 import s from "./MoviesPage.module.css";
 import { searchMovie } from '../../../api'
 import SearchMovie from "../../components/SearchMovie/SearchMovie";
+import MovieList from "../../components/MovieList/MovieList";
 
 const MoviesPage = () => {
     // const [inputQuery, setInputQuery] = useState("");
@@ -60,14 +61,7 @@ const MoviesPage = () => {
                 </button>
             </form> */}
             {error && <p className={s.error}>{error}</p>}
-         <ul className={s.list}>
-                {movies.map((movie) => (
-                    <li key={movie.id} className={s.listItem}>
-                        <NavLink to={`/movies/${movie.id}`} state={location}>{movie.title} </NavLink>
-                    </li>
-                    
-                ))}
-            </ul>
+         <MovieList movies={movies} state={location} />
         </div>
     );
 };
