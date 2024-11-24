@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { Suspense, useEffect, useRef, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import s from "./MovieDeteilsPage.module.css"
 // import { fetchMoviesByKeyword } from '../../../api';
@@ -66,8 +66,10 @@ const MovieDetailsPage = () => {
                    <Link to={goBackLink.current}>Go back</Link>
                   {/* <button className={s.button} onClick={() => navigate(-1)}>← Назад</button> */}
                  
-          </nav>
-                <Outlet /> 
+              </nav>
+              <Suspense fallback={<h2>Завантаження...</h2>}>
+                  <Outlet />
+              </Suspense>
           </div>
       </div>
       
