@@ -61,8 +61,8 @@ const MovieDetailsPage = () => {
           </div>
       <div>
               <nav className={s.nav}>
-              <NavLink to="MovieCast" state={location.state}>MovieCast</NavLink>
-              <NavLink to="MovieReviews" state={location.state} >MovieReviews</NavLink>
+              <NavLink to="cast" state={location.state}>MovieCast</NavLink>
+              <NavLink to="reviews" state={location.state} >MovieReviews</NavLink>
                    <Link to={goBackLink.current}>Go back</Link>
                   {/* <button className={s.button} onClick={() => navigate(-1)}>← Назад</button> */}
                  
