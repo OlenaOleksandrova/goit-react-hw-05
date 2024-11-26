@@ -12,7 +12,7 @@ const MovieDetailsPage = () => {
     const location = useLocation();
      const navigate = useNavigate();
     console.log(location);
-    const goBackLink = useRef(location.state ?? "/movies");
+    const goBackLink = useRef(location?.state?.from ?? "/movies");
     
      useEffect(() => {
         const getMovieDetails = async () => {

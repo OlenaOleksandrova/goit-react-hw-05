@@ -1,7 +1,12 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import s from "./MovieList.module.css";
 
-const MovieList = ({ movies, state }) => {
+
+
+
+const MovieList = ({ movies }) => {
+    const location = useLocation()
+
      if (!movies || movies.length === 0) {
     return <p className={s.error}>Немає фільмів для відображення</p>;
   }
@@ -11,7 +16,7 @@ const MovieList = ({ movies, state }) => {
                 <li key={movie.id} className={s.listItem}>
                     <NavLink 
                         to={`/movies/${movie.id}`} 
-                        state={{ from: state }}
+                        state={{ from: location }}
                     >
                         {movie.title}
                     </NavLink>
